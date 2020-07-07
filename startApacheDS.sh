@@ -8,6 +8,7 @@ if [ ! -f /var/lib/apacheds-2.0.0.AM26/rhocp/pvc.init ]; then
     chown -R apacheds:apacheds /var/lib/apacheds-2.0.0.AM26/rhocp 
 else
     echo "Volume has been initialized - Doing nothing"
+fi
 
 echo "Starting instance rhocp"
 /opt/apacheds-2.0.0.AM26/bin/apacheds console rhocp
