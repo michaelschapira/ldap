@@ -7,7 +7,7 @@ RUN \
     curl -O https://mirrors.ocf.berkeley.edu/apache//directory/apacheds/dist/2.0.0.AM26/apacheds-2.0.0.AM26-x86_64.rpm && \
     yum -y install ./apacheds-2.0.0.AM26-x86_64.rpm && \
     rm ./apacheds-2.0.0.AM26-x86_64.rpm && \
-    mkdir -p /var/lib/apacheds-2.0.0.AM26/rhocp && 
+    mkdir -p /var/lib/apacheds-2.0.0.AM26/rhocp 
 RUN \
     curl -O https://raw.githubusercontent.com/michaelschapira/ldap/master/startApacheDS.sh && \
     chmod +x ./startApacheDS.sh && \
