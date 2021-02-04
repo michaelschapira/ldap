@@ -14,4 +14,5 @@ fi
 export JAVA_HOME='/usr/lib/jvm/default-jvm/'
 echo "Starting instance rhocp"
 echo "Using ${JAVA_HOME}"
-/opt/apacheds-2.0.0.AM26/bin/apacheds console rhocp
+${ADS_INST_PATH}/../../bin/apacheds.sh rhocp start 
+tail -f ${ADS_INST_PATH}/log/apacheds.log
