@@ -1,19 +1,24 @@
-From centos:latest
-Maintainer Michael Schapira <michael.schapira@us.ibm.com>
+From alpine:latest
+LABEL maintainer="Michael Schapira <michael.schapira@us.ibm.com>"
 RUN \
-    yum -y upgrade && \
-    yum -y install \ 
-         java-1.8.0-openjdk && \
-    curl -O https://mirrors.ocf.berkeley.edu/apache//directory/apacheds/dist/2.0.0.AM26/apacheds-2.0.0.AM26-x86_64.rpm && \
-    yum -y install ./apacheds-2.0.0.AM26-x86_64.rpm && \
-    rm ./apacheds-2.0.0.AM26-x86_64.rpm && \
-    mkdir -p /var/lib/apacheds-2.0.0.AM26/rhocp 
+    apk add openjdk8 curl bash && \
+    mkdir /opt/apacheds && \
+    cd /opt/apacheds && \
+    curl -O https://mirrors.gigenet.com/apache//directory/apacheds/dist/2.0.0.AM26/apacheds-2.0.0.AM26.tar.gz && \
+    adduser apacheds -D -H && \
+    tar xzf apacheds-2.0.0.AM26.tar.gz && \
+    rm apacheds-2.0.0.AM26.tar.gz && \
+    chown -R apacheds:apacheds /opt/apacheds
+USER apacheds    
 RUN \
-    curl -O https://raw.githubusercontent.com/michaelschapira/ldap/master/startApacheDS.sh && \
-    chmod +x ./startApacheDS.sh && \
-    mv /startApacheDS.sh /root
-VOLUME [ "/var/lib/apacheds-2.0.0.AM26/rhocp" ]
-WORKDIR /opt/apacheds-2.0.0.AM26
+    cd /opt/apacheds && \
+    curl -O https://raw.githubusercontent.com/michaelschapira/ldap/alpine/startApacheDS.sh && \
+    mkdir -p /opt/apacheds/instances/rhocp && \
+    ln -s /opt/apacheds/instances/rhocp/ /opt/apacheds/apacheds-2.0.0.AM26/instances/ && \
+    chmod +x ./startApacheDS.sh  
+VOLUME [ "/opt/apacheds//instances/rhocp" ]
+WORKDIR /opt/apacheds
 EXPOSE 10389
-ENTRYPOINT ["/root/startApacheDS.sh"] 
+ENTRYPOINT ["./startApacheDS.sh"] 
 # ENTRYPOINT ["/bin/bash"]
+
