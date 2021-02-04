@@ -11,5 +11,7 @@ else
     echo "Volume has been initialized - Doing nothing"
 fi
 
+export JAVA_HOME='/usr/lib/jvm/default-jvm/'
 echo "Starting instance rhocp"
+echo "Using ${JAVA_HOME}"
 /opt/apacheds-2.0.0.AM26/bin/apacheds console rhocp
