@@ -6,7 +6,7 @@ docker file for a simple strait forward [Apache Directory Server](http://directo
 
 
 # runing the container
-`docker run --name alpine_apacheds -v /tmp/apacheds:/opt/apacheds/instances/rhocp -p 10389:10389 -p alpine_apcheds`
+`docker run --name alpine_apacheds -v /tmp/apacheds:/opt/apacheds/instances/rhocp -p 10389:10389 -p 10636:10636 alpine_apcheds`
 
 # Ports
 10389 - Default non SSL LDAP port
