@@ -1,13 +1,11 @@
 #!/bin/bash
-ADS_PATH="/opt/apacheds/apacheds-2.0.0.AM26"
-ADS_INST_PATH="/opt/apacheds/instances/rhocp" 
+# ADS_PATH="/opt/apacheds/apacheds-2.0.0.AM26"
+# ADS_INST_PATH="/opt/apacheds/instances/rhocp" 
 
-if [ ! -f ${ADS_INST_PATH}/pvc.init ]; then
-    touch ${ADS_INST_PATH}/pvc.init
+if [ ! -f ${ADS_INSTANCE}/pvc.init ]; then
+    touch ${ADS_INSTANCE}/pvc.init
     echo "Copying default instance to the volume mount point"
-    cp -r ${ADS__PATH}/instances/default/* ${ADS_INST_PATH}/
-    #echo "changing ownership to be owned by apacheds user and group"
-    #chown -R apacheds:apacheds /var/lib/apacheds-2.0.0.AM26/rhocp 
+    cp -r /opt/apacheds/apacheds-2.0.0.AM26/instances/default/* ${ADS_INSTANCE}/
 else
     echo "Volume has been initialized - Doing nothing"
 fi
@@ -15,6 +13,6 @@ fi
 export JAVA_HOME='/usr/lib/jvm/default-jvm/'
 echo "Starting instance rhocp"
 echo "Using ${JAVA_HOME}"
-${ADS_PATH}/bin/apacheds.sh rhocp start 
-sleep 2
-tail -f ${ADS_INST_PATH}/log/apacheds.log
+/opt/apacheds/apacheds-2.0.0.AM26/bin/apacheds.sh rhocp start 
+sleep 5
+tail -f ${ADS_INSTANCE}/log/apacheds.log
